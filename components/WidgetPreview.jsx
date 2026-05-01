@@ -1,30 +1,52 @@
-'use client';
-import { useState } from 'react';
-import { MessageSquareText, Send, X, Bot, User, Paperclip, MoreHorizontal } from 'lucide-react';
+"use client";
+import { useState } from "react";
+import {
+  MessageSquareText,
+  Send,
+  X,
+  Bot,
+  User,
+  Paperclip,
+  MoreHorizontal,
+} from "lucide-react";
 
 export default function WidgetPreview() {
   const [isOpen, setIsOpen] = useState(true);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([
-    { id: 1, type: 'bot', text: 'Hi there! 👋 Welcome to LiveChat. How can I help you today?' },
-    { id: 2, type: 'user', text: 'Im looking for pricing information.' },
-    { id: 3, type: 'bot', text: 'I can help with that! Our pricing starts at $29/mo for the Starter plan. Would you like me to compare all our plans?' }
+    {
+      id: 1,
+      type: "bot",
+      text: "Hi there! 👋 Welcome to LiveChat. How can I help you today?",
+    },
+    { id: 2, type: "user", text: "Im looking for pricing information." },
+    {
+      id: 3,
+      type: "bot",
+      text: "I can help with that! Our pricing starts at $29/mo for the Starter plan. Would you like me to compare all our plans?",
+    },
   ]);
 
   const handleSend = (e) => {
     e.preventDefault();
     if (!message.trim()) return;
-    
-    setChatHistory([...chatHistory, { id: Date.now(), type: 'user', text: message }]);
-    setMessage('');
-    
+
+    setChatHistory([
+      ...chatHistory,
+      { id: Date.now(), type: "user", text: message },
+    ]);
+    setMessage("");
+
     // Simulate AI response
     setTimeout(() => {
-      setChatHistory(prev => [...prev, { 
-        id: Date.now(), 
-        type: 'bot', 
-        text: 'Thanks for your message! Our human agents are currently reviewing your request.' 
-      }]);
+      setChatHistory((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          type: "bot",
+          text: "Thanks for your message! Our human agents are currently reviewing your request.",
+        },
+      ]);
     }, 1000);
   };
 
@@ -51,11 +73,15 @@ export default function WidgetPreview() {
               <div>
                 <h4 className="font-semibold text-sm">LiveChat AI Support</h4>
                 <p className="text-xs text-primary-100 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Online
+                  <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span>{" "}
+                  Online
                 </p>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white/80 hover:text-white"
+            >
               <X size={20} />
             </button>
           </div>
@@ -63,17 +89,25 @@ export default function WidgetPreview() {
           {/* Chat Area */}
           <div className="flex-1 p-4 overflow-y-auto bg-gray-50/50 dark:bg-gray-900/50 space-y-4">
             {chatHistory.map((msg) => (
-              <div key={msg.id} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} gap-2`}>
-                {msg.type === 'bot' && (
+              <div
+                key={msg.id}
+                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} gap-2`}
+              >
+                {msg.type === "bot" && (
                   <div className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex-shrink-0 flex items-center justify-center mt-1">
-                    <Bot size={12} className="text-primary-600 dark:text-primary-400" />
+                    <Bot
+                      size={12}
+                      className="text-primary-600 dark:text-primary-400"
+                    />
                   </div>
                 )}
-                <div className={`max-w-[80%] rounded-2xl p-3 text-sm ${
-                  msg.type === 'user' 
-                    ? 'bg-primary-600 text-white rounded-tr-sm' 
-                    : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-tl-sm text-gray-800 dark:text-gray-200 shadow-sm'
-                }`}>
+                <div
+                  className={`max-w-[80%] rounded-2xl p-3 text-sm ${
+                    msg.type === "user"
+                      ? "bg-primary-600 text-white rounded-tr-sm"
+                      : "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-tl-sm text-gray-800 dark:text-gray-200 shadow-sm"
+                  }`}
+                >
                   {msg.text}
                 </div>
               </div>
@@ -83,18 +117,21 @@ export default function WidgetPreview() {
           {/* Input Area */}
           <div className="p-3 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
             <form onSubmit={handleSend} className="flex items-center gap-2">
-              <button type="button" className="text-gray-400 hover:text-gray-600">
+              <button
+                type="button"
+                className="text-gray-400 hover:text-gray-600"
+              >
                 <Paperclip size={18} />
               </button>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type your message..." 
+                placeholder="Type your message..."
                 className="flex-1 bg-gray-50 dark:bg-gray-900 border-none rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center hover:bg-primary-700 transition-colors"
               >
                 <Send size={14} className="ml-0.5" />
@@ -102,13 +139,15 @@ export default function WidgetPreview() {
             </form>
             <div className="text-center mt-2">
               <span className="text-[10px] text-gray-400 flex items-center justify-center gap-1">
-                Powered by <MessageSquareText size={10} className="text-primary-500" /> Synapse Chat
+                Powered by{" "}
+                <MessageSquareText size={10} className="text-primary-500" />{" "}
+                Synapse
               </span>
             </div>
           </div>
         </div>
       ) : (
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
           className="absolute bottom-4 right-4 w-14 h-14 bg-primary-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-primary-700 transition-transform hover:scale-105 active:scale-95"
         >

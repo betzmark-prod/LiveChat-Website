@@ -9,9 +9,9 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="pt-24 pb-24 bg-white dark:bg-gray-950">
+    <div className="pt-16 md:pt-24 pb-16 md:pb-24 bg-white dark:bg-gray-950">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Get in touch</h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
             Whether you have a question about features, trials, pricing, need a
