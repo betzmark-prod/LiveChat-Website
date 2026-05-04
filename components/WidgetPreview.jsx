@@ -9,10 +9,14 @@ import {
   Paperclip,
   MoreHorizontal,
 } from "lucide-react";
+import { Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function WidgetPreview() {
   const [isOpen, setIsOpen] = useState(true);
   const [message, setMessage] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+
   const [chatHistory, setChatHistory] = useState([
     {
       id: 1,
@@ -134,14 +138,14 @@ export default function WidgetPreview() {
                 type="submit"
                 className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center hover:bg-primary-700 transition-colors"
               >
-                <Send size={14} className="ml-0.5" />
+                <Send size={14} className="ml-0.5 mr-1 mt-0.5" />
               </button>
             </form>
             <div className="text-center mt-2">
               <span className="text-[10px] text-gray-400 flex items-center justify-center gap-1">
                 Powered by{" "}
                 <MessageSquareText size={10} className="text-primary-500" />{" "}
-                Synapse
+                SynapseChat
               </span>
             </div>
           </div>
@@ -149,9 +153,34 @@ export default function WidgetPreview() {
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="absolute bottom-4 right-4 w-14 h-14 bg-primary-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-primary-700 transition-transform hover:scale-105 active:scale-95"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className={cn(
+            "absolute bottom-4 right-4 w-14 h-14 bg-primary-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-primary-700 transition-transform hover:scale-105 active:scale-95",
+            isHovered
+              ? "bg-gradient-to-tr from-primary-600 to-primary-400 rotate-12 scale-110"
+              : "bg-gradient-to-tr from-primary-700 to-primary-500",
+          )}
         >
-          <MessageSquareText size={28} />
+          <div className="relative z-10">
+            {isHovered ? (
+              <Sparkles size={28} className="animate-pulse" />
+            ) : (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-8 h-8"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            )}
+          </div>
+          {/* Ripple Ambient Effect */}
+          <div className="absolute inset-0 rounded-full border-2 border-brand-400 animate-ping opacity-30"></div>
         </button>
       )}
     </div>

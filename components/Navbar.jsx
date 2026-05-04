@@ -5,6 +5,7 @@ import Link from "next/link";
 import { NAV_LINKS } from "@/constants";
 import Button from "./Button";
 import { MessageSquareText, Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,15 +14,21 @@ export default function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-primary-600 text-white p-1.5 rounded-lg group-hover:bg-primary-700 transition-colors">
-              <MessageSquareText size={20} className="fill-current" />
+            <div>
+              <Image
+                src="/logo.png"
+                alt="Synapse Chat Logo"
+                width={36}
+                height={36}
+                className="object-contain"
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight leading-none">
                 LiveChat
               </span>
               <span className="text-[9px] text-gray-500 font-bold tracking-wider mt-1 uppercase">
-                Powered by Synapse
+                Powered by SynapseChat
               </span>
             </div>
           </Link>
@@ -39,7 +46,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
+        {/* <div className="hidden md:flex items-center gap-4">
           <Link
             href="/login"
             className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
@@ -49,7 +56,7 @@ export default function Navbar() {
           <Button href="/signup" variant="primary">
             Start Free Trial
           </Button>
-        </div>
+        </div> */}
 
         <button
           className="md:hidden p-2 text-gray-600 dark:text-gray-400"

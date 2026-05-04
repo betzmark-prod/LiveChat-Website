@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "LiveChat | AI-Powered Embeddable Chat Widget",
+  title: "LiveChat",
   description:
     "Automate support and increase conversions with LiveChat, the real-time AI chat widget with seamless human escalation.",
   openGraph: {
@@ -27,9 +27,10 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
+
         <Script
-          authkey="ca3c78ef5bb5a00acf080755972c7402"
-          src="http://localhost:5173/embed.js"
+          src="http://localhost:5173/loader.js?siteId=d65bba12-f1be-4541-a71e-c928fabbac2b&position=left&theme=dark"
+          strategy="afterInteractive"
         />
       </body>
     </html>
