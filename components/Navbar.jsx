@@ -81,7 +81,7 @@ export default function Navbar() {
               </Link>
             ))}
           </nav>
-          <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+          {/* <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
             <Link
               href="/login"
               onClick={() => setIsOpen(false)}
@@ -97,7 +97,7 @@ export default function Navbar() {
             >
               Start Free Trial
             </Button>
-          </div>
+          </div> */}
         </div>
       )}
     </header>
