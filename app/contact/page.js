@@ -1,12 +1,6 @@
 import Button from "@/components/Button";
 import { Mail, MessageSquare, MapPin } from "lucide-react";
 
-export const metadata = {
-  title: "Contact Us | LiveChat",
-  description:
-    "Get in touch with the LiveChat team for support, sales, or partnership inquiries.",
-};
-
 export default function ContactPage() {
   return (
     <div className="pt-16 md:pt-24 pb-16 md:pb-24 bg-white dark:bg-gray-950">
@@ -30,8 +24,7 @@ export default function ContactPage() {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Chat with sales</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Speak to our friendly team to see how LiveChat can help
-                  you.
+                  Speak to our friendly team to see how LiveChat can help you.
                 </p>
                 <a
                   href="mailto:sales@livechat.com"

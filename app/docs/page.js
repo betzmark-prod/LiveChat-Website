@@ -1,10 +1,74 @@
-export const metadata = {
-  title: "Documentation | LiveChat",
-  description:
-    "Learn how to integrate and configure LiveChat on your website.",
-};
+"use client";
+
+import { useState } from "react";
+
+const TECH_STACKS = [
+  {
+    id: "vanilla",
+    name: "Vanilla JS",
+    code: `<script 
+  src="https://cdn.livechat.com/loader.js?siteId=YOUR_SITE_ID" 
+  async
+></script>`,
+    language: "html",
+  },
+  {
+    id: "react",
+    name: "React",
+    code: `import { useEffect } from 'react';
+
+function App() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://cdn.livechat.com/loader.js?siteId=YOUR_SITE_ID";
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      // Optional: cleanup on unmount
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return <div>Your App</div>;
+}`,
+    language: "javascript",
+  },
+  {
+    id: "nextjs",
+    name: "Next.js",
+    code: `import Script from 'next/script';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Script
+          src="https://cdn.livechat.com/loader.js?siteId=YOUR_SITE_ID"
+          strategy="afterInteractive"
+        />
+      </body>
+    </html>
+  );
+}`,
+    language: "javascript",
+  },
+  {
+    id: "angular",
+    name: "Angular",
+    code: `<!-- Add this to your src/index.html before </body> -->
+<script 
+  src="https://cdn.livechat.com/loader.js?siteId=YOUR_SITE_ID" 
+  async
+></script>`,
+    language: "html",
+  },
+];
 
 export default function DocsPage() {
+  const [activeTab, setActiveTab] = useState("vanilla");
+
   return (
     <div className="container mx-auto px-4 py-24 flex flex-col md:flex-row gap-12">
       <aside className="w-full md:w-64 shrink-0">
@@ -12,13 +76,13 @@ export default function DocsPage() {
           <h3 className="font-semibold text-lg mb-4">Getting Started</h3>
           <ul className="space-y-3 mb-8">
             <li>
-              <a href="#" className="text-primary-600 font-medium">
+              <a href="#quickstart" className="text-primary-600 font-medium">
                 Quickstart
               </a>
             </li>
             <li>
               <a
-                href="#"
+                href="#installation"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600"
               >
                 Installation
@@ -26,7 +90,7 @@ export default function DocsPage() {
             </li>
             <li>
               <a
-                href="#"
+                href="#configuration"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600"
               >
                 Configuration
@@ -34,30 +98,22 @@ export default function DocsPage() {
             </li>
           </ul>
 
-          <h3 className="font-semibold text-lg mb-4">Advanced</h3>
+          <h3 className="font-semibold text-lg mb-4">Customization</h3>
           <ul className="space-y-3">
             <li>
               <a
-                href="#"
+                href="#theming"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600"
               >
-                Custom Styling
+                Theming
               </a>
             </li>
             <li>
               <a
-                href="#"
+                href="#positioning"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600"
               >
-                API Reference
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-gray-600 dark:text-gray-400 hover:text-primary-600"
-              >
-                Webhooks
+                Positioning
               </a>
             </li>
           </ul>
@@ -65,48 +121,99 @@ export default function DocsPage() {
       </aside>
 
       <main className="flex-1 max-w-3xl prose prose-primary dark:prose-invert">
-        <h1>Quickstart Guide</h1>
-        <p className="lead">
-          Get LiveChat up and running on your website in less than 5 minutes.
-        </p>
+        <section id="quickstart">
+          <h1>Documentation</h1>
+          <p className="lead">
+            Everything you need to integrate LiveChat into your website or
+            application.
+          </p>
 
-        <h2>1. Create an Account</h2>
-        <p>
-          First, sign up for a free LiveChat account. Once logged in,
-          you&apos;ll be directed to your dashboard where you can find your
-          unique widget ID.
-        </p>
+          <h2>1. Get your Site ID</h2>
+          <p>
+            Sign up for a LiveChat account. Once logged in, you&apos;ll receive
+            your unique <code>siteId</code> from the dashboard settings. This ID
+            is required to link your website to your chat agent.
+          </p>
 
-        <h2>2. Add the Snippet</h2>
-        <p>
-          Copy the following JavaScript snippet and paste it just before the
-          closing <code>&lt;/head&gt;</code> tag of your website.
-        </p>
+          <h2 id="installation">2. Choose your Tech Stack</h2>
+          <p>
+            Select your framework below to see the corresponding installation
+            guide.
+          </p>
 
-        <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-          <code>{`<script>
-  window.LiveChatConfig = {
-    widgetId: 'YOUR_WIDGET_ID'
-  };
-</script>
-<script src="https://cdn.livechat.com/widget.js" async></script>`}</code>
-        </pre>
+          {/* Tabs UI */}
+          <div className="not-prose border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden mb-8">
+            <div className="flex border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 p-1">
+              {TECH_STACKS.map((stack) => (
+                <button
+                  key={stack.id}
+                  onClick={() => setActiveTab(stack.id)}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+                    activeTab === stack.id
+                      ? "bg-white dark:bg-gray-800 text-primary-600 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  }`}
+                >
+                  {stack.name}
+                </button>
+              ))}
+            </div>
+            <div className="bg-gray-900 p-6 relative">
+              <pre className="m-0 overflow-x-auto text-sm leading-relaxed text-gray-300">
+                <code>{TECH_STACKS.find((s) => s.id === activeTab).code}</code>
+              </pre>
+            </div>
+          </div>
+        </section>
 
-        <h2>3. Customize</h2>
-        <p>
-          Navigate to the <strong>Appearance</strong> section in your dashboard
-          to customize the widget&apos;s colors, logo, and initial greeting
-          message to match your brand.
-        </p>
+        <section id="configuration">
+          <h2>Configuration</h2>
+          <p>
+            Customize the look and behavior of your widget using URL query
+            parameters.
+          </p>
 
-        <div className="bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-6 my-8">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-200 dark:border-gray-800">
+                  <th className="py-3 font-semibold">Parameter</th>
+                  <th className="py-3 font-semibold">Values</th>
+                  <th className="py-3 font-semibold">Default</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
+                <tr id="positioning">
+                  <td className="py-4 font-mono text-sm">position</td>
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                    <code>left</code>, <code>right</code>
+                  </td>
+                  <td className="py-4 text-sm">
+                    <code>right</code>
+                  </td>
+                </tr>
+                <tr id="theming">
+                  <td className="py-4 font-mono text-sm">theme</td>
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                    <code>light</code>, <code>dark</code>
+                  </td>
+                  <td className="py-4 text-sm">
+                    <code>light</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div className="bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-6 my-12">
           <h4 className="text-primary-800 dark:text-primary-300 font-semibold mt-0 mb-2">
-            Pro Tip
+            Branding Note
           </h4>
           <p className="text-primary-700 dark:text-primary-400 mb-0">
-            For React/Next.js applications, we recommend using our official NPM
-            package instead of the direct script tag for better performance and
-            type safety.
+            LiveChat is proudly <strong>Powered by SynapseChat</strong>. Please
+            ensure all integrations respect the brand guidelines found in our
+            assets folder.
           </p>
         </div>
       </main>
