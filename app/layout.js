@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <Script
-        src="http://localhost:5173/loader.js?siteId=d65bba12-f1be-4541-a71e-c928fabbac2b&position=left&theme=dark"
-        strategy="afterInteractive"
+        src="http://localhost:5173/loader.js?siteId=d65bba12-f1be-4541-a71e-c928fabbac2b"
+        strategy="lazyOnload"
       />
       <body
         className={`${inter.className} antialiased bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 min-h-screen flex flex-col`}
