@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <Script
-        src="http://localhost:5173/loader.js?siteId=d65bba12-f1be-4541-a71e-c928fabbac2b"
+        src="https://widget.localhost/loader.js?siteId=b06bbc2c-de14-4d38-bdf5-6d3bc08f7da0"
         strategy="lazyOnload"
       />
       <body
